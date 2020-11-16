@@ -126,6 +126,7 @@ function Graves.ComboLogic(mode)
         end
     end
 end
+
 function Graves.Rdmg()
     return (250 + (spells.R:GetLevel() - 1) * 150) + (1.5 * Player.BonusAD)
 end
@@ -164,6 +165,15 @@ function Graves.OnPostAttack(_target)
             end
         end
 end
+---@param source AIBaseClient
+---@param dash DashInstance
+function Graves.OnGapclose(source, dash)
+    if not (source.IsEnemy and Menu.Get("Misc.GapW") and spells.W:IsReady()) then return end
+
+    local paths = dash:GetPaths()
+    local endPos = paths[#paths].EndPos
+        spells.W:Cast(endPos)        
+    end
 function Graves.Auto() 
     local KSR = Menu.Get("KillSteal.R")
     local KSQ = Menu.Get("KillSteal.Q")
@@ -251,6 +261,7 @@ function Graves.LoadMenu()
 
         Menu.ColoredText("Misc Options", 0xFFD700FF, true)      
         Menu.Checkbox("Misc.IntW", "Use [W] Interrupt", true)   
+        Menu.Checkbox("Misc.GapW", "Use [W] on Gapcloser", true) 
         Menu.Keybind("Misc.ForceR", "Force [R] Key", string.byte('T'))     
         Menu.Separator()
 
