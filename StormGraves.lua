@@ -136,7 +136,7 @@ end
 ---@param source AIBaseClient
 ---@param spell SpellCast
 function Graves.OnInterruptibleSpell(source, spell, danger, endT, canMove)
-    if not (source.IsEnemy and Menu.Get("Misc.IntW") and spells.Q:IsReady() and danger > 2) then return end
+    if not (source.IsEnemy and Menu.Get("Misc.IntW") and spells.W:IsReady() and danger > 2) then return end
 
     spells.W:CastOnHitChance(source, Enums.HitChance.VeryHigh)
 end
@@ -168,7 +168,7 @@ end
 ---@param source AIBaseClient
 ---@param dash DashInstance
 function Graves.OnGapclose(source, dash)
-    if not (source.IsEnemy and Menu.Get("Misc.GapW") and spells.W:IsReady()) then return end
+    if not (source.IsEnemy and Menu.Get("Misc.GapW") and spells.W:IsReady()) and spells.W:IsInRange(source)then return end
 
     local paths = dash:GetPaths()
     local endPos = paths[#paths].EndPos
