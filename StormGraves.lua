@@ -172,7 +172,9 @@ function Graves.OnGapclose(source, dash)
 
     local paths = dash:GetPaths()
     local endPos = paths[#paths].EndPos
+    if source:Distance(Player) < 400 then
         spells.W:Cast(endPos)        
+        end
     end
 function Graves.Auto() 
     local KSR = Menu.Get("KillSteal.R")
